@@ -3,6 +3,7 @@ import React, { useState, useEffect, useReducer } from 'react';
 import Card from '../UI/Card/Card';
 import classes from './Login.module.css';
 import Button from '../UI/Button/Button';
+import Input from '../UI/Input/Input';
 
 const emailReducer = (state, action) => {
   if (action.type === 'USER_INPUT') {
@@ -48,7 +49,7 @@ const Login = (props) => {
     const indentifier = setTimeout(() => {
       console.log('check form validity');
       setFormIsValid(emailIsValid && passwordIsValid);
-    }, 2000);
+    }, 500);
     return () => {
       console.log('CLEANUP');
       clearTimeout(indentifier);
@@ -83,7 +84,25 @@ const Login = (props) => {
   return (
     <Card className={classes.login}>
       <form onSubmit={submitHandler}>
-        <div
+        <Input
+          state={emailState}
+          label="email"
+          text="E-Mail"
+          type="email"
+          id="email"
+          onChangeHandler={emailChangeHandler}
+          onBlurHandler={validateEmailHandler}
+        />
+        <Input
+          state={passwordState}
+          label="password"
+          text="Password"
+          type="password"
+          id="password"
+          onChangeHandler={passwordChangeHandler}
+          onBlurHandler={validatePasswordHandler}
+        />
+        {/* <div
           className={`${classes.control} ${
             emailState.isValid === false ? classes.invalid : ''
           }`}
@@ -96,8 +115,8 @@ const Login = (props) => {
             onChange={emailChangeHandler}
             onBlur={validateEmailHandler}
           />
-        </div>
-        <div
+        </div> */}
+        {/* <div
           className={`${classes.control} ${
             passwordState.isValid === false ? classes.invalid : ''
           }`}
@@ -110,7 +129,7 @@ const Login = (props) => {
             onChange={passwordChangeHandler}
             onBlur={validatePasswordHandler}
           />
-        </div>
+        </div> */}
         <div className={classes.actions}>
           <Button type="submit" className={classes.btn} disabled={!formIsValid}>
             Login
